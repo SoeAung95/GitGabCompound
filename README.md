@@ -31,5 +31,18 @@ if __name__ == "__main__":
     main()
 
 python3 my_bot.py
-
+name: Telegram Notification
+on:
+  push:
+    branches:
+      - main
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Telegram Message
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot<Your_Bot_Token>/sendMessage" \
+          -d chat_id="<Your_Chat_ID>" \
+          -d text="New Commit in Repository: ${{ github.repository }}"
 
